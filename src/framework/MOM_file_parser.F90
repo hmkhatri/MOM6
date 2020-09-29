@@ -1406,7 +1406,7 @@ subroutine log_param_real_array(CS, modulename, varname, value, desc, &
   logical,          optional, intent(in) :: like_default !< If present and true, log this parameter as
                                          !! though it has the default value, even if there is no default.
 
-  character(len=1320) :: mesg
+  character(len=2000) :: mesg
   character(len=240) :: myunits
 
  !write(mesg, '("  ",a," ",a,": ",ES19.12,99(",",ES19.12))') &
