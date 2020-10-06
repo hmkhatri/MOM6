@@ -50,6 +50,7 @@ use ISOMIP_initialization, only : ISOMIP_initialize_thickness
 use ISOMIP_initialization, only : ISOMIP_initialize_sponges
 use ISOMIP_initialization, only : ISOMIP_initialize_temperature_salinity
 use RGC_initialization, only : RGC_initialize_sponges
+use SOC_initialization, only : SOC_initialize_sponges
 use baroclinic_zone_initialization, only : baroclinic_zone_init_temperature_salinity
 use benchmark_initialization, only : benchmark_initialize_thickness
 use benchmark_initialization, only : benchmark_init_temperature_salinity
@@ -525,6 +526,7 @@ subroutine MOM_initialize_state(u, v, h, tv, Time, G, GV, US, PF, dirs, &
                  " \t\t specified by (SPONGE_FILE).\n"//&
                  " \t ISOMIP - apply ale sponge in the ISOMIP case \n"//&
                  " \t RGC - apply sponge in the rotating_gravity_current case \n"//&
+                 " \t SOC - apply sponge in the Southern Ocean channel case \n"//&
                  " \t DOME - use a slope and channel configuration for the \n"//&
                  " \t\t DOME sill-overflow test case. \n"//&
                  " \t BFB - Sponge at the southern boundary of the domain\n"//&
@@ -537,6 +539,8 @@ subroutine MOM_initialize_state(u, v, h, tv, Time, G, GV, US, PF, dirs, &
       case ("ISOMIP"); call ISOMIP_initialize_sponges(G, GV, US, tv, PF, useALE, &
                                                       sponge_CSp, ALE_sponge_CSp)
       case("RGC"); call RGC_initialize_sponges(G, GV, US, tv, u, v, PF, useALE, &
+                                                     sponge_CSp, ALE_sponge_CSp)
+      case("SOC"); call SOC_initialize_sponges(G, GV, US, tv, u, v, PF, useALE, &
                                                      sponge_CSp, ALE_sponge_CSp)
       case ("USER"); call user_initialize_sponges(G, GV, use_temperature, tv, PF, sponge_CSp, h)
       case ("BFB"); call BFB_initialize_sponges_southonly(G, GV, US, use_temperature, tv, PF, &
