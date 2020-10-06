@@ -1,4 +1,4 @@
-module RGC_initialization
+module SOC_initialization
 !***********************************************************************
 !*                   GNU General Public License                        *
 !* This file is a part of MOM.                                         *
@@ -46,7 +46,7 @@ public SOC_initialize_sponges
 contains
 
 !> Sets up the the inverse restoration time, and the values towards which the interface heights,
-!! velocities and tracers should be restored within the sponges for the RGC test case.
+!! velocities and tracers should be restored within the sponges for the SOC test case.
 subroutine SOC_initialize_sponges(G, GV, US, tv, u, v, PF, use_ALE, CSp, ACSp)
   type(ocean_grid_type), intent(in) :: G    !< The ocean's grid structure.
   type(verticalGrid_type), intent(in) :: GV !< The ocean's vertical grid structure.
