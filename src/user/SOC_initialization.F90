@@ -86,10 +86,10 @@ subroutine SOC_initialize_sponges(G, GV, US, tv, u, v, PF, use_ALE, CSp, ACSp)
   real :: min_depth, dummy1, z, delta_h
   real :: rho_dummy, min_thickness, rho_tmp, xi0
   real :: lenlat, lenlon, lensponge
-  character(len=40) :: filename, state_file, damping_file
-  character(len=40) :: temp_var, salt_var, eta_var, inputdir, h_var, Idamp_var
+  character(len=200) :: filename, state_file, damping_file, inputdir
+  character(len=40) :: temp_var, salt_var, eta_var, h_var, Idamp_var
 
-  character(len=40)  :: mod = "SOC_initialize_sponges" ! This subroutine's name.
+  character(len=40) :: mod = "SOC_initialize_sponges" ! This subroutine's name.
   integer, dimension(2) :: EOSdom ! The i-computational domain for the equation of state
   integer :: i, j, k, is, ie, js, je, isd, ied, jsd, jed, nz, iscB, iecB, jscB, jecB
 
