@@ -168,24 +168,24 @@ subroutine SOC_initialize_sponges(G, GV, US, tv, u, v, PF, use_ALE, CSp, ACSp)
   call get_param(PF, mod, "SPONGE_H_VAR", h_var, &
               "The name of the layer thickness variable in \n"//&
               "SPONGE_STATE_FILE.", default="h")
-  call get_param(param_file, mdl, "SOC_DAMPING_FILE", damping_file, &
+  call get_param(PF, mod, "SOC_DAMPING_FILE", damping_file, &
               "The name of the file with the sponge damping rates.", &
               fail_if_missing=.true.)
-  call get_param(param_file, mdl, "SPONGE_IDAMP_VAR", Idamp_var, &
+  call get_param(PF, mod, "SPONGE_IDAMP_VAR", Idamp_var, &
               "The name of the inverse damping rate variable in "//&
               "SPONGE_DAMPING_FILE.", default="IDAMP")
 
-  !read temp and eta
+  !read idamp, temp and eta
+  filename = trim(inputdir)//trim(damping_file)
+  if (.not.file_exists(filename, G%Domain)) &
+      call MOM_error(FATAL, " SOC_initialize_sponges: Unable to open "//trim(filename))
+  call read_data(filename,Idamp_var,Idamp(:,:), domain=G%Domain%mpp_domain)
+  
   filename = trim(inputdir)//trim(state_file)
   if (.not.file_exists(filename, G%Domain)) &
       call MOM_error(FATAL, " SOC_initialize_sponges: Unable to open "//trim(filename))
   call read_data(filename,temp_var,T(:,:,:), domain=G%Domain%mpp_domain)
   call read_data(filename,salt_var,S(:,:,:), domain=G%Domain%mpp_domain)
-
-  filename = trim(inputdir)//trim(damping_file)
-  if (.not.file_exists(filename, G%Domain)) &
-      call MOM_error(FATAL, " SOC_initialize_sponges: Unable to open "//trim(filename))
-  call read_data(filename,Idamp_var,Idamp(:,:), domain=G%Domain%mpp_domain)  
 
   if (use_ALE) then
 
